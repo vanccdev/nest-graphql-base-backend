@@ -1,0 +1,82 @@
+type Query {
+  users: [User]!
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: ID!): User
+}
+
+"""
+Representa un usuario del sistema
+"""
+type User {
+  id: ID!
+
+  """
+  Nombre de usuario (usualmente CI)
+  """
+  userName: String!
+
+  """
+  Correo electrónico del usuario
+  """
+  email: String
+
+  """
+  Número de intentos fallidos de login
+  """
+  attempts: Int!
+
+  # ===== Auditoría =====
+  """
+  Estado lógico del registro
+  """
+  estado: String!
+
+  """
+  Tipo de transacción realizada (CREAR, ACTUALIZAR, etc)
+  """
+  transaccion: String!
+
+  """
+  ID del usuario que creó el registro
+  """
+  usuarioCreacion: ID!
+
+  """
+  Fecha de creación del registro
+  """
+  fechaCreacion: String!
+
+  """
+  ID del usuario que modificó el registro
+  """
+  usuarioModificacion: ID
+
+  """
+  Fecha de la última modificación
+  """
+  fechaModificacion: String
+}
+
+"""
+Datos necesarios para crear un usuario
+"""
+input CreateUserInput {
+  userName: String!
+  password: String!
+  email: String
+}
+
+"""
+Datos necesarios para actualizar un usuario
+"""
+input UpdateUserInput {
+  password: String
+  email: String
+  attempts: Int
+  estado: String
+}
