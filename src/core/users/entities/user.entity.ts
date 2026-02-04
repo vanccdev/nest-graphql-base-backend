@@ -1,8 +1,8 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import dotenv from 'dotenv';
-import { AuditoriaEntity } from 'src/common/entity/auditoria.entity';
-import { UserEstado } from '../constant';
-dotenv.config();
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import dotenv from 'dotenv'
+import { AuditoriaEntity } from 'src/common/entity/auditoria.entity'
+import { UserEstado } from '../constant'
+dotenv.config()
 
 @Entity({ name: 'users', schema: process.env.DB_SCHEMA_USERS })
 export class User extends AuditoriaEntity {
@@ -11,7 +11,7 @@ export class User extends AuditoriaEntity {
     name: 'id',
     comment: 'Clave primaria de la tabla Usuario',
   })
-  id: string;
+  id: string
 
   @Column({
     name: 'user_name',
@@ -20,14 +20,14 @@ export class User extends AuditoriaEntity {
     unique: true,
     comment: 'nombre de usuario, usualmente carnet de identidad',
   })
-  userName: string;
+  userName: string
 
   @Column({
     length: 255,
     type: 'varchar',
     comment: 'contraseña del usuario',
   })
-  password: string;
+  password: string
 
   @Column({
     name: 'email',
@@ -35,7 +35,7 @@ export class User extends AuditoriaEntity {
     nullable: true,
     comment: 'correo electrónico del usuario',
   })
-  email?: string | null;
+  email?: string | null
 
   @Column({
     name: 'attempts',
@@ -43,18 +43,14 @@ export class User extends AuditoriaEntity {
     default: 0,
     comment: 'número de intentos de inicio de sesión fallidos',
   })
-  attempts: number;
+  attempts: number
 
   constructor(data?: Partial<User>) {
-    super(data);
+    super(data)
   }
-  /* constructor(data?: Partial<User>) {
-    super(); // solo inicializa BaseEntity
-    if (data) Object.assign(this, data); // asigna TODO aquí
-  } */
 
   @BeforeInsert()
   insertarEstado() {
-    this.estado = this.estado || UserEstado.ACTIVE;
+    this.status = this.status || UserEstado.ACTIVE
   }
 }

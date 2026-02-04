@@ -1,15 +1,15 @@
 // swagger config
-export const SWAGGER_API_ROOT = 'api/docs';
-export const SWAGGER_API_NAME = 'Backend Base';
-export const SWAGGER_API_DESCRIPTION =
-  'Documentación del Proyecto base BACKEND';
-export const SWAGGER_API_CURRENT_VERSION = '1.0';
+export const SWAGGER_API_ROOT = 'api/docs'
+export const SWAGGER_API_NAME = 'Backend Base'
+export const SWAGGER_API_DESCRIPTION = 'Documentación del Proyecto base BACKEND'
+export const SWAGGER_API_CURRENT_VERSION = '1.0'
 
 export enum Status {
   CREATE = 'CREADO',
   ACTIVE = 'ACTIVO',
   INACTIVE = 'INACTIVO',
   PENDING = 'PENDIENTE',
+  DELETED = 'DELETED',
 }
 
 export enum Order {
@@ -35,5 +35,5 @@ export enum Transaccion {
   ACTUALIZAR = 'ACTUALIZAR',
 }
 
-export const USUARIO_SISTEMA = '1';
-export const USUARIO_NORMAL = '0';
+export const USUARIO_SISTEMA = '1'
+export const USUARIO_NORMAL = '0'

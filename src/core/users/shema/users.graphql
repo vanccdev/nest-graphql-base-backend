@@ -1,24 +1,116 @@
 type Query {
-  users: [User]!
-  user(id: ID!): User
+  users: SuccessResponseUsers!
+  user(idUser: ID!): SuccessResponseUser!
+  filterUsers(
+    limite: Int
+    saltar: Int
+    filtro: String
+    orden: String
+    sentido: String
+  ): SuccessResponseUsers!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: ID!): User
+  createUser(createUserInput: CreateUserInput!): SuccessResponseUser!
+  updateUser(
+    idUser: String!
+    updateUserInput: UpdateUserInput!
+  ): SuccessResponseUser!
+  deleteUser(idUser: String!): SuccessResponseDelete!
+}
+
+"""
+Respuesta estándar exitosa con un solo usuario
+"""
+type SuccessResponseUser {
+  """
+  Indica si la operación finalizó correctamente
+  """
+  finalizado: Boolean!
+
+  """
+  Mensaje descriptivo de la operación
+  """
+  mensaje: String!
+
+  """
+  Datos del usuario
+  """
+  datos: User!
+}
+
+"""
+Respuesta estándar exitosa con datos de usuarios paginados
+"""
+type SuccessResponseUsers {
+  """
+  Indica si la operación finalizó correctamente
+  """
+  finalizado: Boolean!
+
+  """
+  Mensaje descriptivo de la operación
+  """
+  mensaje: String!
+
+  """
+  Datos paginados de usuarios
+  """
+  datos: PaginatedUsersData!
+}
+
+"""
+Respuesta estándar para operaciones de eliminación
+"""
+type SuccessResponseDelete {
+  """
+  Indica si la operación finalizó correctamente
+  """
+  finalizado: Boolean!
+
+  """
+  Mensaje descriptivo de la operación
+  """
+  mensaje: String!
+
+  """
+  Datos de la eliminación
+  """
+  datos: DeleteUserData!
+}
+
+"""
+Datos de usuario eliminado
+"""
+type DeleteUserData {
+  idUser: ID!
+}
+
+"""
+Datos paginados de usuarios
+"""
+type PaginatedUsersData {
+  """
+  Lista de usuarios encontrados
+  """
+  filas: [User!]!
+
+  """
+  Total de registros que cumplen con los filtros
+  """
+  total: Int!
 }
 
 """
 Representa un usuario del sistema
 """
 type User {
-  id: ID!
+  id: ID
 
   """
   Nombre de usuario (usualmente CI)
   """
-  userName: String!
+  userName: String
 
   """
   Correo electrónico del usuario
@@ -28,38 +120,43 @@ type User {
   """
   Número de intentos fallidos de login
   """
-  attempts: Int!
+  attempts: Int
 
   # ===== Auditoría =====
   """
   Estado lógico del registro
   """
-  estado: String!
+  status: String
 
   """
   Tipo de transacción realizada (CREAR, ACTUALIZAR, etc)
   """
-  transaccion: String!
+  transaction: String
 
   """
   ID del usuario que creó el registro
   """
-  usuarioCreacion: ID!
+  userCreation: ID
 
   """
   Fecha de creación del registro
   """
-  fechaCreacion: String!
+  dateCreation: String
 
   """
   ID del usuario que modificó el registro
   """
-  usuarioModificacion: ID
+  userModification: ID
 
   """
   Fecha de la última modificación
   """
-  fechaModificacion: String
+  dateModification: String
+
+  """
+  Fecha de eliminación lógica
+  """
+  dateDelete: String
 }
 
 """
@@ -68,7 +165,8 @@ Datos necesarios para crear un usuario
 input CreateUserInput {
   userName: String!
   password: String!
-  email: String
+  email: String!
+  userCreation: String
 }
 
 """
@@ -78,5 +176,6 @@ input UpdateUserInput {
   password: String
   email: String
   attempts: Int
-  estado: String
+  status: String
+  userModification: String
 }

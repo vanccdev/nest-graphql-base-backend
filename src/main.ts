@@ -27,8 +27,8 @@ export const SessionAppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   schema: process.env.DB_SCHEMA,
-  synchronize: false,
-  // synchronize: true,
+  // synchronize: false,
+  synchronize: true,
   entities: [__dirname + '/../src/**/*.entity{.ts,.js}'],
 })
 
@@ -71,7 +71,6 @@ async function bootstrap() {
 
   app.enableCors()
 
-  app.use(helmet.hidePoweredBy())
   app.use(helmet())
   app.useGlobalPipes(
     new ValidationPipe({

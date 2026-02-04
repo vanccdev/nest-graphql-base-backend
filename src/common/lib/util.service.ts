@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UtilService {
   /**
-   * Devuelve una expresión SQL para validar el campo estado de un modelo
+   * Devuelve una expresión SQL para validar el campo status de un modelo
    * @param items {object} Conjunto de valores.
    * @returns {string} expresión SQL
    * @example
@@ -12,10 +12,10 @@ export class UtilService {
    *   INACTIVO = 'INACTIVO',
    * }
    * const expression = UtilService.buildCheck(PersonaEstadoEnum)
-   * // expression = "_estado IN ('ACTIVO', 'INACTIVO')"
+   * // expression = "_status IN ('ACTIVO', 'INACTIVO')"
    */
   static buildStatusCheck(items: object = {}): string {
-    return UtilService.buildCheck('_estado', items);
+    return UtilService.buildCheck('_status', items)
   }
 
   /**
@@ -39,10 +39,10 @@ export class UtilService {
    * // expression = "tipo_documento IN ('CI', 'PASAPORTE')"
    */
   static buildCheck(field: string, items: object = {}): string {
-    const values = Object.keys(items).map((k) => items[k]);
+    const values = Object.keys(items).map((k) => items[k])
     if (values.length === 0) {
-      throw new Error('[buildCheck] Debe especificarse al menos un item');
+      throw new Error('[buildCheck] Debe especificarse al menos un item')
     }
-    return `${field} IN ('${values.join(`','`)}')`;
+    return `${field} IN ('${values.join(`','`)}')`
   }
 }

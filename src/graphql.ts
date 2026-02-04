@@ -11,41 +11,83 @@
 export class CreateUserInput {
     userName: string;
     password: string;
-    email?: Nullable<string>;
+    email: string;
+    userCreation?: Nullable<string>;
 }
 
 export class UpdateUserInput {
     password?: Nullable<string>;
     email?: Nullable<string>;
     attempts?: Nullable<number>;
-    estado?: Nullable<string>;
+    status?: Nullable<string>;
+    userModification?: Nullable<string>;
 }
 
 export abstract class IQuery {
-    abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
+    __typename?: 'IQuery';
 
-    abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
+    abstract users(): SuccessResponseUsers | Promise<SuccessResponseUsers>;
+
+    abstract user(idUser: string): SuccessResponseUser | Promise<SuccessResponseUser>;
+
+    abstract filterUsers(limite?: Nullable<number>, saltar?: Nullable<number>, filtro?: Nullable<string>, orden?: Nullable<string>, sentido?: Nullable<string>): SuccessResponseUsers | Promise<SuccessResponseUsers>;
 }
 
 export abstract class IMutation {
-    abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
+    __typename?: 'IMutation';
 
-    abstract updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
+    abstract createUser(createUserInput: CreateUserInput): SuccessResponseUser | Promise<SuccessResponseUser>;
 
-    abstract removeUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+    abstract updateUser(idUser: string, updateUserInput: UpdateUserInput): SuccessResponseUser | Promise<SuccessResponseUser>;
+
+    abstract deleteUser(idUser: string): SuccessResponseDelete | Promise<SuccessResponseDelete>;
+}
+
+export class SuccessResponseUser {
+    __typename?: 'SuccessResponseUser';
+    finalizado: boolean;
+    mensaje: string;
+    datos: User;
+}
+
+export class SuccessResponseUsers {
+    __typename?: 'SuccessResponseUsers';
+    finalizado: boolean;
+    mensaje: string;
+    datos: PaginatedUsersData;
+}
+
+export class SuccessResponseDelete {
+    __typename?: 'SuccessResponseDelete';
+    finalizado: boolean;
+    mensaje: string;
+    datos: DeleteUserData;
+}
+
+export class DeleteUserData {
+    __typename?: 'DeleteUserData';
+    idUser: string;
+}
+
+export class PaginatedUsersData {
+    __typename?: 'PaginatedUsersData';
+    filas: User[];
+    total: number;
 }
 
 export class User {
-    id: string;
-    userName: string;
+    __typename?: 'User';
+    id?: Nullable<string>;
+    userName?: Nullable<string>;
     email?: Nullable<string>;
-    attempts: number;
-    estado: string;
-    transaccion: string;
-    usuarioCreacion: string;
-    fechaCreacion: string;
-    usuarioModificacion?: Nullable<string>;
-    fechaModificacion?: Nullable<string>;
+    attempts?: Nullable<number>;
+    status?: Nullable<string>;
+    transaction?: Nullable<string>;
+    userCreation?: Nullable<string>;
+    dateCreation?: Nullable<string>;
+    userModification?: Nullable<string>;
+    dateModification?: Nullable<string>;
+    dateDelete?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;

@@ -4,71 +4,80 @@ import {
   BeforeUpdate,
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import { Transaccion } from '../constants';
+} from 'typeorm'
+import { Transaccion } from '../constants'
 
 export abstract class AuditoriaEntity extends BaseEntity {
   @Column({
-    name: '_estado',
+    name: '_status',
     length: 30,
     type: 'varchar',
     nullable: false,
     comment: 'Estado del registro',
   })
-  estado: string;
+  status: string
 
   @Column('varchar', {
-    name: '_transaccion',
+    name: '_transaction',
     length: 30,
     nullable: false,
     comment: 'Tipo de operación ejecutada',
   })
-  transaccion: string;
+  transaction: string
 
   @Column('bigint', {
-    name: '_usuario_creacion',
+    name: '_user_creation',
     nullable: false,
     comment: 'Id de usuario que creó el registro',
   })
-  usuarioCreacion: string;
+  userCreation: string
 
   @CreateDateColumn({
-    name: '_fecha_creacion',
+    name: '_date_creation',
     type: 'timestamp without time zone',
     nullable: false,
     default: () => 'now()',
     comment: 'Fecha de creación',
   })
-  fechaCreacion: Date;
+  dateCreation: Date
 
   @Column('bigint', {
-    name: '_usuario_modificacion',
+    name: '_user_modification',
     nullable: true,
     comment: 'Id de usuario que realizo una modificación',
   })
-  usuarioModificacion?: string | null;
+  userModification?: string | null
 
   @UpdateDateColumn({
-    name: '_fecha_modificacion',
+    name: '_date_modification',
     type: 'timestamp without time zone',
     nullable: true,
     comment: 'Fecha en que se realizó una modificación',
   })
-  fechaModificacion?: Date | null;
+  dateModification?: Date | null
+
+  @DeleteDateColumn({
+    name: '_date_delete',
+    type: 'timestamp without time zone',
+    nullable: true,
+    comment: 'Fecha de eliminación lógica',
+  })
+  dateDelete?: Date
 
   @BeforeInsert()
   insertarTransaccion() {
-    this.transaccion = this.transaccion || Transaccion.CREAR;
+    this.transaction = this.transaction || Transaccion.CREAR
   }
 
   @BeforeUpdate()
   actualizarTransaccion() {
-    this.transaccion = this.transaccion || Transaccion.ACTUALIZAR;
+    this.transaction = this.transaction || Transaccion.ACTUALIZAR
   }
 
   protected constructor(data?: Partial<AuditoriaEntity>) {
-    super();
-    if (data) Object.assign(this, data);
+    super()
+    if (data) Object.assign(this, data)
   }
 }

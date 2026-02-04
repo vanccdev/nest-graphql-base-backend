@@ -494,7 +494,7 @@ export class BaseException extends Error {
       args.push(inspect(this.error, false, null, false))
     }
 
-    if (this.errorStack) {
+    /* if (this.errorStack) {
       args.push('\n───── Error stack ─────')
       args.push(this.errorStack)
     }
@@ -502,7 +502,7 @@ export class BaseException extends Error {
     if (this.traceStack) {
       args.push('\n───── Trace stack ─────')
       args.push(this.traceStack)
-    }
+    } */
 
     args.push('')
 

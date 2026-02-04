@@ -26,7 +26,7 @@ export enum Messages {
   SUCCESS_ACCOUNT_UNLOCK = 'Cuenta desbloqueada exitosamente.',
   INVALID_USER_CREDENTIALS = 'Credenciales de usuario inválidas.',
   NO_PERMISSION_USER = 'El usuario no tiene roles asignados.',
-  INVALID_USER = 'El usuario no existe o no tiene un estado válido.',
+  INVALID_USER = 'El usuario no existe o no tiene un status válido.',
   INVALID_CREDENTIALS = 'Credenciales incorrectas.',
   INACTIVE_USER = 'El usuario está inactivo.',
   PENDING_USER = 'El usuario está pendiente de activación. Revisa tu correo electrónico.',

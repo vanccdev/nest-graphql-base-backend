@@ -27,8 +27,10 @@ $@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@P   g@@@@@@@p
                "PB@@@@@@@@BPP     g@@@@@@@@@@@P]@@@P
                                 ,@@@@B@@@@@@P  @@P
                                ""  ,g@@@@@P  ,@P'
-     NestJS Base Backend         ,@@@@@P-   7P
+                               ,@@@@@P-   7P
                               ,@@@P-
+
+  NestJS Graphql Base Backend
   `
 
 export function printNestJSLogo(logo = DEFAULT_LOGO) {

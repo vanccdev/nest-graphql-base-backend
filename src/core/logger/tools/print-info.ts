@@ -27,7 +27,7 @@ export function printInfo(appInfo: AppInfo) {
       urlRed: appNetworkUrl,
       fecha: now,
     },
-    formato: `🚀 ${appName} ${appVersion}`,
+    formato: `${appName} ${appVersion}`,
   })
 
   const serviceInfo = `
