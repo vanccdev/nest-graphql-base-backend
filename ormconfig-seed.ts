@@ -1,8 +1,9 @@
-import { DataSource } from 'typeorm';
-import dotenv from 'dotenv';
+import { DataSource } from 'typeorm'
+import dotenv from 'dotenv'
+import { LoggerService, SQLLogger } from '@/core/logger'
 // import { LoggerService, SQLLogger } from '@/core/logger'
 
-dotenv.config();
+dotenv.config()
 
 const SeedDataSource = new DataSource({
   type: 'postgres',
@@ -14,16 +15,16 @@ const SeedDataSource = new DataSource({
   schema: process.env.DB_SCHEMA,
   synchronize: false,
   // synchronize: true,
-  /* logger: new SQLLogger({
+  logger: new SQLLogger({
     logger: LoggerService.getInstance(),
     level: {
       query: true,
       error: true,
     },
-  }), */
+  }),
   logging: true,
   entities: ['src/**/*.entity.ts'],
   migrations: ['database/seeds/*.ts'],
-});
+})
 
-export default SeedDataSource;
+export default SeedDataSource

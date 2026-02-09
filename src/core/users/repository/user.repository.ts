@@ -18,12 +18,6 @@ export class UserRepository {
 
   async findFilterUser(paginacionQueryDto: FiltrosUsuarioDto) {
     const { limite, saltar, filtro, orden, sentido } = paginacionQueryDto
-    console.log(limite);
-    console.log(saltar);
-    console.log(filtro);
-    console.log(orden);
-    console.log(sentido);
-    
 
     const query = this.dataSource
       .getRepository(User)
